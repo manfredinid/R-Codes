@@ -2,9 +2,7 @@
 title: "Credit Model Calibration"
 author: "Denise Manfredini"
 date: "07/02/2020"
-output:
-  html_document:
-    df_print: paged
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -39,6 +37,9 @@ Sys.setenv(X13_PATH = "C:/Users/Denise Manfredini/Documents/R/win-library/3.4/x1
 Teste teste teste 99999
 
 okokokokokokokokokok
+
+
+okokokokokokkkkkkk
 
 ##  Measured by Components of Demand
 
