@@ -6,9 +6,7 @@ output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 #install.packages('BETS','sidrar','ipeadatar','fpp2','astsa','mFilter')
 
 require(BETS)
@@ -33,13 +31,6 @@ Sys.setenv(X13_PATH = "C:/Users/Denise Manfredini/Documents/R/win-library/3.4/x1
 # checkX13()
 ```
 
-
-Teste teste teste 99999
-
-okokokokokokokokokok
-
-
-okokokokokokkkkkkk
 
 ##  Measured by Components of Demand
 
@@ -94,9 +85,8 @@ EAP <- BETSget(10810,from = "2001-10-31")
 employed <- BETSget(10812, from ="2001-10-31")
 unemployed <- BETSget(10811, from="2001-10-31")
 
-# unemployed
-employment.pop <- employed/AP
 
+employment.pop <- employed/AP
 
 # Hours of Work
 #First is march 2002 last value is Feb/2016
