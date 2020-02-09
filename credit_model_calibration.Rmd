@@ -31,8 +31,11 @@ Sys.setenv(X13_PATH = "C:/Users/Denise Manfredini/Documents/R/win-library/3.4/x1
 # checkX13()
 ```
 
+Data for the transiiton path calibration.
 
-##  Measured by Components of Demand
+##  GDP Measured by Components of Demand
+<details>
+  <summary>Click to expand</summary>
 
 ```{r, message=FALSE}
 # From IBGE (quarterly)
@@ -62,17 +65,29 @@ exports <-ts(exports$Valor,  start=c(2001,01), freq=4)
 # Imports
 imports <- get_sidra(api='/t/1846/n1/all/v/all/p/last%2075/c11255/93408/d/v585%200')
 imports <-ts(imports$Valor,  start=c(2001,01), freq=4)
+
+
+plot.netexports <- autoplot(exports-imports, main='net exports')
+plot.investment <- autoplot(stock+capitalformation, main = 'investment')
+plot.consumption <-autoplot(government+consumption, main='consumption')
+plot.output <- autoplot(GDP.sidra, main='output')
+grid.arrange(plot.netexports ,plot.investment , plot.consumption,plot.output, ncol=2)
+
+#GDP.sidra - (stock+capitalformation+government+consumption+exports-imports)
 ```
+</details>
   
        
 # Labor and Capital Markets
 
 ## Employment and Hours of Work
-<div class="alert alert-info">
- Population is divided between PIA and PINA
- PIA (eng:AP) is divided between PEA and PNEA
- PEA (eng:EAP) is divided between employed and unemployed
-</div>
+
+
+```diff
++ Population is divided between PIA and PINA.
++ PIA (eng:AP) is divided between PEA and PNEA.
++ PEA (eng:EAP) is divided between employed and unemployed.
+```
 
 ```{r, message=FALSE}
 # Active population
@@ -93,8 +108,15 @@ employment.pop <- employed/AP
  
 hours<- get_sidra(api='/t/2166/n110/all/v/1006/p/all/d/v1006%201')
 hours <- ts(hours$Valor,  start=c(2002,03), freq=12)
+
+
+
+plot.AP <- autoplot(AP, main='active population')
+plot.employment.pop <- autoplot(employment.pop, main = 'employment ratio')
+plot.hours <- autoplot(hours, main='worked hours (weekly)')
+grid.arrange(plot.AP ,plot.employment.pop , plot.hours, ncol=2)
 ```
-# Credit Market
+## Credit Market
 
 ```{r}
 # Total
@@ -119,19 +141,36 @@ nonearmarked.firms <-BETSget(20543,from = "2007-03-01", to = "2017-12-31")
 nonearmarked.households <-BETSget(20570,from = "2007-03-01", to = "2017-12-31")
 
 ```
-## Monthly (%p.m) start in March 2011 
+```{r, message=FALSE}
+plot.nonearmarked  <- autoplot(nonearmarked/total , main='non-earmarked credit (%total)')
+plot.earmarked <- autoplot(earmarked/total, main = 'earmarked credit (%total)')
+plot.nonearmarked.firms <- autoplot(nonearmarked.firms/total.firms, main='nonearmarked credit for firms (%firms total)')
+plot.earmarked.firms <- autoplot(earmarked.firms/total.firms, main='earmarked credit for firms (%firms total)')
+grid.arrange(plot.nonearmarked ,plot.earmarked , plot.nonearmarked.firms, plot.earmarked.firms,ncol=2)
 
-```{r}
+
+```
+## Monthly (%p.m.) start in March 2011 
+
+```{r, message=FALSE}
 
 rate.nonearmarked <- BETSget(25436,from ="2011-04-01",to ="2017-03-01")
 
 rate.earmarked <-BETSget(25481,from ="2011-04-01",to ="2017-03-01")
+```
+
+```{r, message=FALSE}
+interestrate.ne <- cbind(rate.nonearmarked, rate.earmarked)
+autoplot(interestrate.ne, facets=FALSE, main='interest rate (% p.m.)')
 
 ```
 # Adjusting to real values
 
 ## Deflate series
  The series are deflated using the IPCA
+ 
+<details>
+  <summary>Click to expand</summary>
 
 ```{r, message=FALSE}
 actual_dates_quarter <- seq.Date(from = as.Date("2001-01-01"), to = as.Date("2019-07-01"), by = "quarter")
@@ -148,9 +187,19 @@ CX <- deflate(CX, actual_dates_quarter , '01/2010', index = 'ipca')
 CG <- deflate(CG, actual_dates_quarter , '01/2010', index = 'ipca')
 
 ```
-## Adjust series to 2001 Q4
+```{r}
+plot.netexports.real <- autoplot(CX, main='real net exports')
+plot.investment.real <- autoplot(CI, main = 'real investment')
+plot.consumption.real <-autoplot(CC+CG, main='real consumption')
+plot.output.real <- autoplot(gdp_quarter, main='real output')
+grid.arrange(plot.netexports.real ,plot.investment.real , plot.consumption.real,plot.output.real, ncol=2)
+```
+ </details>
+## Per capita and HP filter Series
 
 ```{r, message=FALSE}
+## Adjust series to 2001 Q4
+
 # AP to quarter
 # from 2001/04 to 2015/04 and from thousands to unit
 AP_quarter <- 1000*(aggregate(AP, nfrequency=4)/3)
@@ -164,9 +213,11 @@ government_CG_adj <- window(CG, start = c(2001, 4), end=c(2015,4))
 netexports_CX_adj <- window(CX, start = c(2001, 4), end=c(2015,4))
 ```
 
-## Deseasonalize series and divide by population
+
 
 ```{r}
+## Deseasonalize series and divide by population
+
 # Millions to a unit
 gdp_final <- (gdp_quarter_adj/AP_quarter_adj)*1000000
 gdp_final <- seas(gdp_final)
@@ -190,20 +241,30 @@ netexports_final <- (netexports_CX_adj/AP_quarter_adj)*1000000
 netexports_final <- seas(netexports_final)
 netexports_final <-final(netexports_final)
 ```
-## HP filter
+
 
 
 ```{r}
+## HP filter
+
 gdp_final_filter <-  hpfilter(gdp_final, freq=6.25,type="frequency")
 consumption_final_filter <-  hpfilter(consumption_final, freq=6.25,type="frequency")
 investment_final_filter <-  hpfilter(investment_final, freq=6.25,type="frequency")
 government_final_filter <-  hpfilter(government_final, freq=6.25,type="frequency")
 netexports_final_filter <-  hpfilter(netexports_final, freq=6.25,type="frequency")
 ```
-
+```{r}
+plot.netexports.hp <- autoplot(netexports_final_filter$trend, main='HP filter net exports')
+plot.investment.hp <- autoplot(investment_final_filter$trend, main = 'HP filter investment')
+plot.consumption.hp <-autoplot(consumption_final_filter$trend+government_final_filter$trend, main='HP filter consumption')
+plot.output.hp<- autoplot(gdp_final_filter$trend, main='HP filter output')
+grid.arrange(plot.netexports.hp ,plot.investment.hp ,plot.consumption.hp , plot.output.hp,ncol=2)
+```
 
 # Population and Technology Discount Factors
+*Gamma* is the tecnology discount factor.
 
+*Eta* is the population discount factor.
 
 ```{r}
 # From 2001-Q4 to 2015-Q4
@@ -222,10 +283,13 @@ c_y <- (consumption_final_filter$trend+government_final_filter$trend)/gdp_final_
 
 i_y <- (investment_final_filter$trend)/gdp_final_filter$trend
 
-cbind(round(mean(i_y),2), round(mean(c_y),2))
+cbind('i/y'=round(mean(i_y),2), 'c/y'=round(mean(c_y),2))
 ```
 
 ## Discount factor
+
+*Beta* is the discount factor.
+
 ```{r}
 rate.credit <-BETSget(25433)
 interest.rate<-mean(rate.credit)/100
@@ -237,15 +301,23 @@ round(beta, digits = 2)
 
 All series are expressed in per capita terms after dividing by the  population in active age, those aged 15 to 64.
 
-The measure of GDP is the current price GDP from the CNT/IBGE deflated by the IPCA
+The measure of **GDP** is the current price GDP from the CNT/IBGE deflated by the IPCA
 ```{r}
 y <- log(gdp_final_filter$trend)
+
+cbind(mean=round(mean(y),2), sd = round(sd(y),2))
 ```
 
-capital stock: Measure using *perpetual inventory* method, using the s data on investment, an initial capital stock, and an estimate
+The **capital stock** is measure using *perpetual inventory* method, using the s data on investment, an initial capital stock, and an estimate
 of the rate of depreciation  we constructed a series using the accumulation equation for capital.
 
-*The initial value is the same measure by Lama (2011), but the ratios are VERY different*
+
+```diff
++ The initial value is the same measure by Lama (2011), but the ratios are VERY different.
+```
+
+
+
 
 ```{r}
 delta <- 0.05
@@ -264,21 +336,25 @@ k <- ts(k, frequency=4, start=c(2001,4))
 k <- seas(k)
 k<-final(k)
 
+cbind(mean=round(mean(log(k)),2), sd = round(sd(log(k))),2)
 ```
 
-The measure of consumption is the sum of consumption and government spending from CNT/IBGE
+The measure of **consumption** is the sum of consumption and government spending from CNT/IBGE.
 
 ```{r}
 c <- log(consumption_final_filter$trend + government_final_filter$trend)
+cbind(mean=round(mean(c),2), sd = round(sd(c),2))
 ```
 
-Investment is measured as the gross fixed capital formation from CNT/IBGE
+**Investment** is measured as the gross fixed capital formation from CNT/IBGE.
 
 ```{r}
 i <- log(investment_final_filter$trend)
+
+cbind(mean=round(mean(i),2), sd = round(sd(i),2))
 ```
-Total hours is measured by the fraction of hours worked by the AP population.
-Fraction of employed population is the proportion of employed population to total population in active age. 
+**Total hours worked** is measured by the fraction of hours worked by the AP population.
+Fraction of employed population is the proportion of employed population to total. population in active age. 
 
 ```{r}
 Worked.hours<-(mean(hours)/(16*7))*(employment.pop)
@@ -287,6 +363,8 @@ Worked.hours<-ts(Worked.hours, frequency=4, start=c(2001,4))
 Worked.hours<-seas(Worked.hours)
 Worked.hours<-final(Worked.hours)
 total.worked.hours <- Worked.hours*AP_quarter_adj
+
+cbind(mean=round(mean(total.worked.hours),2), sd = round(sd(total.worked.hours),2))
 ```
 
 ```{r}
@@ -322,7 +400,7 @@ plot.k <- autoplot(k, main='Capital Stock')
 grid.arrange(plot.c, plot.y, plot.h,plot.i, plot.xm, plot.k, ncol=2)
 ```
 
-## Table in logs
+## Data in logs
 ```{r}
 consumption2015<-log(c[((as.yearqtr("2015-04")- as.yearqtr("2001-04"))*4+1)])
 investment2015<-log(i[((as.yearqtr("2015-04")- as.yearqtr("2001-04"))*4+1)])
@@ -341,6 +419,8 @@ met
 ```
 # Policy design
 
+The transition path will be computed as a transition from the minimum non-earmarked earmarked ration gap to the maximum.
+
 ```{r}
 pi_p <- seas(rate.nonearmarked/rate.earmarked)
 pi_p <-final(pi_p)
@@ -351,5 +431,5 @@ pi_p <- pi_p$trend
 
 autoplot(pi_p, main='non-earmarked earmarked ratio')
 
-cbind(round(max(rate.nonearmarked/rate.earmarked),2), round(min(rate.nonearmarked/rate.earmarked),2))
+cbind(max=round(max(pi_p),2), min =round(min(pi_p),2))
 ```

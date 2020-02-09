@@ -3,45 +3,72 @@ Credit Model Calibration
 Denise Manfredini
 07/02/2020
 
-## Measured by Components of Demand
+Data for the transiiton path calibration.
+
+## GDP Measured by Components of Demand
+
+<details>
+
+<summary>Click to
+expand</summary>
+
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+</details>
 
 # Labor and Capital Markets
 
 ## Employment and Hours of Work
 
-<div class="alert alert-info">
+``` diff
++ Population is divided between PIA and PINA.
++ PIA (eng:AP) is divided between PEA and PNEA.
++ PEA (eng:EAP) is divided between employed and unemployed.
+```
 
-Population is divided between PIA and PINA PIA (eng:AP) is divided
-between PEA and PNEA PEA (eng:EAP) is divided between employed and
-unemployed
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+\#\# Credit
+Market
 
-</div>
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+\#\# Monthly (%p.m.) start in March
+2011
 
-# Credit Market
-
-## Monthly (%p.m) start in March 2011
-
-# Adjusting to real values
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+\# Adjusting to real values
 
 ## Deflate series
 
 The series are deflated using the IPCA
 
-## Adjust series to 2001 Q4
+<details>
 
-## Deseasonalize series and divide by population
+<summary>Click to
+expand</summary>
 
-## HP filter
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+</details>
+
+## Per capita and HP filter Series
+
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Population and Technology Discount Factors
+
+*Gamma* is the tecnology discount factor.
+
+*Eta* is the population discount factor.
 
     ##           eta    gamma
     ## [1,] 1.002411 1.004923
 
-    ##      [,1] [,2]
-    ## [1,] 0.19  0.8
+    ##       i/y c/y
+    ## [1,] 0.19 0.8
 
 ## Discount factor
+
+*Beta* is the discount factor.
 
     ## [1] 0.92
 
@@ -50,33 +77,49 @@ The series are deflated using the IPCA
 All series are expressed in per capita terms after dividing by the
 population in active age, those aged 15 to 64.
 
-The measure of GDP is the current price GDP from the CNT/IBGE deflated
-by the IPCA
+The measure of **GDP** is the current price GDP from the CNT/IBGE
+deflated by the IPCA
 
-capital stock: Measure using *perpetual inventory* method, using the s
-data on investment, an initial capital stock, and an estimate of the
-rate of depreciation we constructed a series using the accumulation
-equation for capital.
+    ##      mean   sd
+    ## [1,] 9.93 0.16
 
-*The initial value is the same measure by Lama (2011), but the ratios
-are VERY different*
+The **capital stock** is measure using *perpetual inventory* method,
+using the s data on investment, an initial capital stock, and an
+estimate of the rate of depreciation we constructed a series using the
+accumulation equation for
+capital.
 
-The measure of consumption is the sum of consumption and government
-spending from CNT/IBGE
+``` diff
++ The initial value is the same measure by Lama (2011), but the ratios are VERY different.
+```
 
-Investment is measured as the gross fixed capital formation from
-CNT/IBGE
+    ##       mean sd  
+    ## [1,] 11.11  0 2
 
-Total hours is measured by the fraction of hours worked by the AP
-population. Fraction of employed population is the proportion of
-employed population to total population in active
-age.
+The measure of **consumption** is the sum of consumption and government
+spending from CNT/IBGE.
+
+    ##      mean   sd
+    ## [1,] 9.71 0.16
+
+**Investment** is measured as the gross fixed capital formation from
+CNT/IBGE.
+
+    ##      mean   sd
+    ## [1,] 8.25 0.23
+
+**Total hours worked** is measured by the fraction of hours worked by
+the AP population. Fraction of employed population is the proportion of
+employed population to total. population in active age.
+
+    ##         mean       sd
+    ## [1,] 7999489 801217.4
 
 ## Real data in Levels (deseasonalized data)
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
-## Table in logs
+## Data in logs
 
     ##                 2011     2015
     ## consumption 9.636931 9.600179
@@ -85,7 +128,11 @@ age.
 
 # Policy design
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+The transition path will be computed as a transition from the minimum
+non-earmarked earmarked ration gap to the
+maximum.
 
-    ##      [,1] [,2]
-    ## [1,] 4.57 3.38
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+    ##      max  min
+    ## [1,] 4.2 3.51
