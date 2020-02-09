@@ -116,6 +116,7 @@ plot.employment.pop <- autoplot(employment.pop, main = 'employment ratio')
 plot.hours <- autoplot(hours, main='worked hours (weekly)')
 grid.arrange(plot.AP ,plot.employment.pop , plot.hours, ncol=2)
 ```
+
 ## Credit Market
 
 ```{r}
@@ -382,6 +383,12 @@ Populator.Deflator <- ts(pop,  frequency = 4, start = c(2001, 4))
 
 ```
 ## Real data in Levels (deseasonalized data)
+
+
+```diff
++  Detrended by the rate of technological progress (gamma).
+```
+
 ```{r}
 c <- (consumption_final+government_final)*Technological.Progress.Deflator
 i <- investment_final*Technological.Progress.Deflator

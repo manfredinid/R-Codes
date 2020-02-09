@@ -27,8 +27,8 @@ expand</summary>
 ```
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-\#\# Credit
-Market
+
+## Credit Market
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 \#\# Monthly (%p.m.) start in March
@@ -116,6 +116,10 @@ employed population to total. population in active age.
     ## [1,] 7999489 801217.4
 
 ## Real data in Levels (deseasonalized data)
+
+``` diff
++  Detrended by the rate of technological progress (gamma).
+```
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
