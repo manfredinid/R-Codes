@@ -1,4 +1,4 @@
-# IntroduÁ„o ao R - Econometria 1
+# Introdu√ß√£o ao R - Econometria 1
 # Aula 2
 
 #------------------------
@@ -6,109 +6,109 @@
 #rm(elemento que quero deletar)
 
 # Como limpo o console?
-# No Rstudio È CTRL+L
+# No Rstudio √© CTRL+L
 
-#-------vari·veis contÌnuas------------
+#-------vari√°veis cont√≠nuas------------
 
-# FunÁıes
+# Fun√ß√µes
 f <-  function(x){ x^2 + 2*x }
 
-## Calculando a funÁ„o em x=3
+## Calculando a fun√ß√£o em x=3
 f(3)
 
 
 # Integrais
 
-## Escreve a funÁ„o
+## Escreve a fun√ß√£o
 z <- function(x){ 1/x^2 }
 
-## Integre a funÁ„o
+## Integre a fun√ß√£o
 integral_z <- integrate(z,
                         lower = 1,
                         upper = Inf)$value
 integral_z
 
 
-# ExercÌcio 2: Escreva a funÁ„o w(x)=e^-x
+# Exerc√≠cio 2: Escreva a fun√ß√£o w(x)=e^-x
 #-------------------------------------
 #-------------------------------------
 
-# ExercÌcio 3: Integre a funÁ„o do exercÌcio 2 de -infinito atÈ +infinito
+# Exerc√≠cio 3: Integre a fun√ß√£o do exerc√≠cio 2 de -infinito at√© +infinito
 #-------------------------------------
 #-------------------------------------
 
-# EsperanÁa
+# Esperan√ßa
 
 ## Defina a FDP
 f <- function(x){x/4*exp(-x^2/8)}
 
-## Defina a funÁ„o ex
+## Defina a fun√ß√£o ex
 ex <- function(x)x*f(x)
 
 ## Calcule o valor esperado de X
 expected_value <- integrate(ex, 0, Inf)$value
 
-# Vari‚ncia
+# Vari√¢ncia
 
-## Defina a funÁ„o ex2
+## Defina a fun√ß√£o ex2
 ex2 <- function(x)x^2*f(x)
 
-## Calcule a vari‚ncia de X
+## Calcule a vari√¢ncia de X
 variance <- integrate(ex2, 0, Inf)$value - expected_value^2
 
 
 
-#-------distribuiÁ„o normal------------
+#-------distribui√ß√£o normal------------
 
-## Escrevendo a fÛrmula da Normal
+## Escrevendo a f√≥rmula da Normal
 normal <- function(x){ 1 /sqrt(2*pi*1)*exp(-(x-0)^2/(2*1^2))}
 
-## Gr·fico de uma N(0,1)
+## Gr√°fico de uma N(0,1)
 curve(dnorm(x),
       xlim = c(-3.5, 3.5),
       ylab = "Densidade", 
-      main = "FunÁ„o de Densidade de uma Normal Padr„o") 
+      main = "Fun√ß√£o de Densidade de uma Normal Padr√£o") 
 
-## Gr·fico de uma N(0,1) - usando a funÁ„o feita 'a m„o'
+## Gr√°fico de uma N(0,1) - usando a fun√ß√£o feita 'a m√£o'
 curve(normal(x),
       xlim = c(-3.5, 3.5),
       ylab = "Densidade", 
-      main = "FunÁ„o de Densidade de uma Normal Padr„o") 
+      main = "Fun√ß√£o de Densidade de uma Normal Padr√£o") 
 
-## FunÁıes
+## Fun√ß√µes
 ### dnorm(x,mean,sd) - FDP da normal
 ### pnorm(q,mean,sd) - probabilidade acumulada
 ### rnorm(n,mean,sd) - simula dado de uma normal
 
 
-#-------distribuiÁ„o amostral da mÈdia------------
+#-------distribui√ß√£o amostral da m√©dia------------
 
 
-# Lei dos Grandes N˙meros
+# Lei dos Grandes N√∫meros
 
-## Exemplo da repetiÁ„o da jogada de um dado
+## Exemplo da repeti√ß√£o da jogada de um dado
 dado <- 1:6
 roll <- function(n) {
   mean(sample(dado, size = n, replace = TRUE))
 }
 
-### rep È o n˙mero de repetiÁıes - mude para testar diferentes n˙meros de repetiÁıes
+### rep √© o n√∫mero de repeti√ß√µes - mude para testar diferentes n√∫meros de repeti√ß√µes
 rep <- 1000
-plot(sapply(1:rep, roll), type = "l", xlab = "jogadas", ylab = "mÈdia")
+plot(sapply(1:rep, roll), type = "l", xlab = "jogadas", ylab = "m√©dia")
 
-### desenha a linha da mÈdia do experimento (3.5)
+### desenha a linha da m√©dia do experimento (3.5)
 abline(h = 3.5, col = "red")
 
 
 # Teorema do Limite Central
 
-### rep1 È o n˙mero de repetiÁıes - mude para testar diferentes n˙meros de repetiÁıes
+### rep1 √© o n√∫mero de repeti√ß√µes - mude para testar diferentes n√∫meros de repeti√ß√µes
 rep1 <- 5000
 
-## gera n˙meros aleatÛrios de uma N(0,1)
+## gera n√∫meros aleat√≥rios de uma N(0,1)
  x <- rnorm(rep1,mean=0,sd=1)
  
-## histograma das repetiÁıes 
+## histograma das repeti√ß√µes 
 hist(x,prob=TRUE, main = paste("Histograma" ),
      xlab = "x",
      ylab= "Densidade")
@@ -117,9 +117,9 @@ hist(x,prob=TRUE, main = paste("Histograma" ),
 curve(dnorm(x,mean=0,sd=1),add=TRUE,lwd=2,col="red")
 
 
-#------- intervalo de confianÁa ------------
+#------- intervalo de confian√ßa ------------
 
-##### Qual o preÁo mÈdio dos imÛveis em Windsor, Canad·?
+##### Qual o pre√ßo m√©dio dos im√≥veis em Windsor, Canad√°?
 
 
 # importar os dados externos
@@ -131,7 +131,7 @@ windsor_pop <- read_csv("windsor_pop.csv")
 View(windsor_pop)
 
 # se tivermos o pacote dplyr podemos tirar amostrar da base original
-# aqui s„o retiradas amostras de 50% da populaÁao dos dados (.5)
+# aqui s√£o retiradas amostras de 50% da popula√ßao dos dados (.5)
 
 # tira amostras dos dados originais
 ##library(dplyr)
@@ -139,13 +139,13 @@ View(windsor_pop)
 ##windsor_sample <- sample_frac(windsor_pop, .5)
 
 
-# importa amostra (essa planilha foi gerada com a funÁ„o comentada acima)
+# importa amostra (essa planilha foi gerada com a fun√ß√£o comentada acima)
 windsor_sample <- read_csv("windsor_sample.csv")
 View(windsor_sample)
 
 
-######## gr·fico do slide ##########
-# cria 100 mÈdias amostrais
+######## gr√°fico do slide ##########
+# cria 100 m√©dias amostrais
 #library(dplyr)
 #sample_mean <- vector(mode = "double", length = 100)
 #for(i in seq_along(sample_mean)) {
@@ -155,29 +155,29 @@ View(windsor_sample)
 #  sample_mean[i] <- mean_stat
 #}
 
-#hist(sample_mean, main="Histograma das MÈdias", ylab="frequÍncia", xlab="mÈdias amostrais")
-#abline(v = mean(sample_mean), col = "red")          # mÈdia das 100 mÈdias amostrais
-#abline(v = mean(windsor_pop$price), col = "blue") # mÈdia da populaÁ„o
+#hist(sample_mean, main="Histograma das M√©dias", ylab="frequ√™ncia", xlab="m√©dias amostrais")
+#abline(v = mean(sample_mean), col = "red")          # m√©dia das 100 m√©dias amostrais
+#abline(v = mean(windsor_pop$price), col = "blue") # m√©dia da popula√ß√£o
 
 ###############################
 
 
-# Par‚metros para o IC
+# Par√¢metros para o IC
 x <- windsor_sample$price
-xbar <- mean(x) # mÈdia
+xbar <- mean(x) # m√©dia
 multi <- qt(.975, df = length(x) - 1) # t-Student
-sigma <- sd(x) # desvio padr„o
+sigma <- sd(x) # desvio padr√£o
 denom <- sqrt(length(x)) # raiz quadrada de n
 
-# calcula o erro padr„o
+# calcula o erro padr√£o
 se <- multi * (sigma / denom)
 
 # intervalo inferior e superior
 xbar + c(-se, se)
 
-## usando a funÁ„o t.test
+## usando a fun√ß√£o t.test
 
-# nomeia a funÁ„o 
+# nomeia a fun√ß√£o 
 ttest <- t.test(windsor_sample$price, conf.level = 0.95)
 
 # mostra apenas o resultado do IC
@@ -185,14 +185,14 @@ ttest <- t.test(windsor_sample$price, conf.level = 0.95)
 ttest$conf.in
 
 
-### PreÁo mÈdio dos imÛveis em Windor com nÌvel de signific‚ncia de 0,05?
+### Pre√ßo m√©dio dos im√≥veis em Windor com n√≠vel de signific√¢ncia de 0,05?
 # mostra os dois intervalo
 rbind(c(ttest$conf.in), c(xbar + c(-se, se)))
 
 
-#------- teste de hipÛtese ------------
+#------- teste de hip√≥tese ------------
 
-# Existe diferenÁa significativa na mÈdia das notas dos filmes lanÁados em 2015.
+# Existe diferen√ßa significativa na m√©dia das notas dos filmes lan√ßados em 2015.
 
 # importa dados
 library(readr)
@@ -206,80 +206,80 @@ View(year2015)
 sample <- year2015$Metascore
 pop <- movies$Metascore
 
-sample_mean <- mean(sample) # mÈdia da amostra
-pop_mean <- mean(pop) # mÈdia da populaÁ„o
+sample_mean <- mean(sample) # m√©dia da amostra
+pop_mean <- mean(pop) # m√©dia da popula√ß√£o
 n <- length(sample) # tamanho da amostra
-var <- var(sample) # vari‚ncia da amostra
+var <- var(sample) # vari√¢ncia da amostra
 
 # calcula o teste-t
 tstatistic <- (sample_mean - pop_mean) / (sqrt(var/(n)))
 tstatistic
 
-# usando a funÁ„o t-test
-# nomeia a funÁ„o t.test
+# usando a fun√ß√£o t-test
+# nomeia a fun√ß√£o t.test
 tstatistic_f <- t.test(year2015$Metascore, mu = mean(movies$Metascore))
 tstatistic_f$statistic
 
-# mostra as duas estatÌticas
+# mostra as duas estat√≠ticas
 c(tstatistic_f$statistic, tstatistic)
 
 # Comparando com o valor tabelado
 df<-length(year2015$Metascore) -1 # grau de liberdade
-qt(0.975,df) # valor tabelado da distribuiÁ„o t (superior)
-qt(0.025,df) # valor tabelado da distribuiÁ„o t (inferior)
+qt(0.975,df) # valor tabelado da distribui√ß√£o t (superior)
+qt(0.025,df) # valor tabelado da distribui√ß√£o t (inferior)
 
-# se rejeita a hipÛtese nula |estat.calculada| > valor.tabelado_superior
+# se rejeita a hip√≥tese nula |estat.calculada| > valor.tabelado_superior
 # rejeita H0 se estat.calculada > valor.tabelado_superior ou estat.calculada < valor.tabelado_inferior
-# se a estatÌstica calculada cai nas caudas rejeitamos a hipÛtese nula
-# se TRUE rejeitamos a hipÛtese nula | se FALSE n„o rejeitamos a hipÛtese nula
-abs(tstatistic) > qt(0.025,df) # Rejeitamos a hipÛtese nula?
+# se a estat√≠stica calculada cai nas caudas rejeitamos a hip√≥tese nula
+# se TRUE rejeitamos a hip√≥tese nula | se FALSE n√£o rejeitamos a hip√≥tese nula
+abs(tstatistic) > qt(0.025,df) # Rejeitamos a hip√≥tese nula?
 
 
 #### EXERCICIOS ########
 
-# ExercÌcio 4: Escreva a funÁ„o f(x)=(x/4)e^(-x^2/8)
+# Exerc√≠cio 4: Escreva a fun√ß√£o f(x)=(x/4)e^(-x^2/8)
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 5: Confira se funÁ„o do exercÌcio 2 È um FDP
+# Exerc√≠cio 5: Confira se fun√ß√£o do exerc√≠cio 2 √© um FDP
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 6: Encontre a esperanÁa e vari‚ncia para f(x)=3/x^4
+# Exerc√≠cio 6: Encontre a esperan√ßa e vari√¢ncia para f(x)=3/x^4
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 7: Seja z ~ N(0,1).
-# Calcule valor da densidade da normal padr„o em c = 3
+# Exerc√≠cio 7: Seja z ~ N(0,1).
+# Calcule valor da densidade da normal padr√£o em c = 3
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 8: Seja Y ~ N(2,12).
-# Gere 5 n˙meros aleatÛrios dessa distribuiÁ„o
+# Exerc√≠cio 8: Seja Y ~ N(2,12).
+# Gere 5 n√∫meros aleat√≥rios dessa distribui√ß√£o
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 9: Seja Z ~ N(0,1).
+# Exerc√≠cio 9: Seja Z ~ N(0,1).
 # Calcule P(|Z|<=z)
 #-------------------------------------
 
 #-------------------------------------
 
-# ExercÌcio 10: Qual o preÁo mÈdio dos imÛveis com 3 quartos da mostra de Windsor, Canad·?
+# Exerc√≠cio 10: Qual o pre√ßo m√©dio dos im√≥veis com 3 quartos da mostra de Windsor, Canad√°?
 # Use os dados do windsor_sample
-# Use um intervalo de 95% de confianÁa
+# Use um intervalo de 95% de confian√ßa
 #-------------------------------------
 
 #-------------------------------------
 
 
-# ExercÌcio 11: Existe diferenÁa significativa na mÈdia das notas dos filmes com menos de 120 minutos?
-# FaÁa time120 <-subset(movies, Runtime < '120')
+# Exerc√≠cio 11: Existe diferen√ßa significativa na m√©dia das notas dos filmes com menos de 120 minutos?
+# Fa√ßa time120 <-subset(movies, Runtime < '120')
 # Teste continua sendo bicaudal 
 #-------------------------------------
 
