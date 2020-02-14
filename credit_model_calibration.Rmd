@@ -22,6 +22,7 @@ require(zoo)
 require(seasonal)
 require(tsibble)
 
+theme_set(theme_minimal())
 ts2csv <- function(x) {
   fname <- paste0(deparse(substitute(x)), ".csv")
   readr::write_csv(tsibble::as_tsibble(x, gather = FALSE), fname)
@@ -406,6 +407,43 @@ plot.xm <- autoplot(xm, main='net exports')
 plot.k <- autoplot(k, main='Capital Stock')
 grid.arrange(plot.c, plot.y, plot.h,plot.i, plot.xm, plot.k, ncol=2)
 ```
+## Index Values
+<details>
+  <summary>Click to expand</summary>
+  
+```{r, warning==FALSE}
+y.index<- (y/y[1])*100
+i.index<- (i/y)*100
+y.index.plot <- ggplot(y.index, aes(x = time(y.index), y = y.index)) +
+    geom_line(size=0.7) + 
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2002,2015,1), 
+                     labels=2002:2015 )+
+   theme(axis.text.x = element_text(angle=90, vjust = 0.5),
+         legend.title=element_blank(),
+        legend.position = c(.4,0.85))+
+  xlab("") + 
+  ylab("GDP (2001Q4 = 100)")
+ggsave(file="yindex.eps")
+
+i.index.plot <-ggplot(i.index, aes(x = time(i.index), y = i.index)) +
+    geom_line(size=0.7) + 
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2002,2015,1), 
+                     labels=2002:2015 )+
+   theme(axis.text.x = element_text(angle=90, vjust = 0.5),
+         legend.title=element_blank(),
+        legend.position = c(.4,0.85))+
+  geom_hline(yintercept=20, color='red', size=0.7)+
+  xlab("") + 
+  ylab("Investment (%GDP)")
+ggsave(file="iindex.eps")
+
+grid.arrange(y.index.plot,i.index.plot, ncol=2)
+
+
+```
+</details>
 
 ## Data in logs
 ```{r}

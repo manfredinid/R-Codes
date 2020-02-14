@@ -31,11 +31,27 @@ expand</summary>
 ## Credit Market
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-\#\# Monthly (%p.m.) start in March
-2011
+
+## Monthly (%p.m.) start in March 2011
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
-\# Adjusting to real values
+
+<details>
+
+<summary>Click to
+    expand</summary>
+
+    ## Saving 7 x 5 in image
+
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+</details>
+
+# Adjusting to real values
 
 ## Deflate series
 
@@ -46,13 +62,13 @@ The series are deflated using the IPCA
 <summary>Click to
 expand</summary>
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 </details>
 
 ## Per capita and HP filter Series
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 # Population and Technology Discount Factors
 
@@ -121,7 +137,33 @@ employed population to total. population in active age.
 +  Detrended by the rate of technological progress (gamma).
 ```
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+## Graphs (introduction)
+
+<details>
+
+<summary>Click to
+    expand</summary>
+
+    ## Saving 7 x 5 in image
+
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+
+    ## Saving 7 x 5 in image
+
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+
+    ## Saving 7 x 5 in image
+
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+
+![](credit_model_calibration_files/figure-gfm/warning==FALSE-1.png)<!-- -->
+
+</details>
 
 ## Data in logs
 
@@ -136,7 +178,7 @@ The transition path will be computed as a transition from the minimum
 non-earmarked earmarked ration gap to the
 maximum.
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
     ##      max  min
     ## [1,] 4.2 3.51
