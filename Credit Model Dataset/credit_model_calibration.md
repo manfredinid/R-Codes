@@ -42,21 +42,6 @@ expand</summary>
     ##      [,1] [,2]
     ## [1,] 2.16 0.56
 
-<details>
-
-<summary>Click to
-    expand</summary>
-
-    ## Saving 7 x 5 in image
-
-    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
-    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
-    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
-
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
-
-</details>
-
 # Adjusting to real values
 
 ## Deflate series
@@ -68,13 +53,13 @@ The series are deflated using the IPCA
 <summary>Click to
 expand</summary>
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 </details>
 
 ## Per capita and HP filter Series
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Population and Technology Discount Factors
 
@@ -143,7 +128,7 @@ employed population to total. population in active age.
 +  Detrended by the rate of technological progress (gamma).
 ```
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ## Graphs (introduction)
 
@@ -168,6 +153,49 @@ employed population to total. population in active age.
     ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
 
 ![](credit_model_calibration_files/figure-gfm/warning==FALSE-1.png)<!-- -->
+
+    ## Saving 7 x 5 in image
+
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+    ## Don't know how to automatically pick scale for object of type ts. Defaulting to continuous.
+
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+    ## Time Series:
+    ## Start = 2008 
+    ## End = 2016 
+    ## Frequency = 1 
+    ##      round(households/total * 100, 1) round(firms/total * 100, 1)
+    ## 2008                             36.1                        63.9
+    ## 2009                             33.9                        66.1
+    ## 2010                             33.5                        66.5
+    ## 2011                             36.0                        64.0
+    ## 2012                             38.9                        61.1
+    ## 2013                             41.2                        58.8
+    ## 2014                             43.5                        56.5
+    ## 2015                             44.7                        55.3
+    ## 2016                             46.9                        53.1
+    ##      round(rural/firms * 100, 1) round(realestate/firms * 100, 1)
+    ## 2008                        12.8                              3.1
+    ## 2009                        10.7                              4.1
+    ## 2010                         9.1                              4.8
+    ## 2011                         8.9                              6.0
+    ## 2012                         8.5                              7.2
+    ## 2013                         9.0                              7.5
+    ## 2014                         9.9                              8.1
+    ## 2015                         8.9                              8.3
+    ## 2016                         9.3                              8.7
+    ##      round(BNDES/firms * 100, 1) round(other/firms * 100, 1)
+    ## 2008                        70.2                        13.9
+    ## 2009                        73.3                        11.9
+    ## 2010                        76.6                         9.5
+    ## 2011                        77.4                         7.7
+    ## 2012                        77.2                         7.1
+    ## 2013                        74.6                         8.9
+    ## 2014                        73.2                         8.8
+    ## 2015                        73.0                         9.8
+    ## 2016                        71.0                        11.1
 
 </details>
 

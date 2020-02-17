@@ -174,85 +174,7 @@ cbind(min(rate.nonearmarked), min(rate.earmarked))
 
 ```
 
-<details>
-  <summary>Click to expand</summary>
-  
-```{r, message=FALSE}
 
-rate.plot <- ggplot() +
-  geom_line(data = rate.earmarked, aes(x = time(rate.earmarked), y = , rate.earmarked, linetype ="dashed")) +
-  geom_line(data = rate.nonearmarked, aes(x = time(rate.earmarked), y = rate.nonearmarked, linetype = "solid")) +
-   geom_line(data = rate.gap, aes(x = time(rate.earmarked), y = rate.gap), color="red") +
-    geom_line(size=0.7) +
-    theme_minimal()+
-  scale_x_continuous(breaks=seq(2011,2017,1), 
-                     labels=2011:2017 )+
-  theme(axis.text.x = element_text(angle=90, vjust = 0.5))+
-  xlab("") + 
-  ylab("interest rate (%p.m.)")+
-  theme(
-    legend.position = c(0, 1.1),
-    legend.justification = c("left", "top"),
-    legend.box.just = "right",
-    legend.margin = margin(6, 6, 6, 6)
-    )+
-  scale_linetype_manual(name = '', values = rep(c('solid', 'dashed'),2),labels = c("earmarked", "non-earmarked")) 
-ggsave(file="rateplot.eps")
-
-
-actual_dates_month <- seq.Date(from = as.Date("2007-03-01"), to = as.Date("2017-12-30"), by = "month")
-earmarked.d <- deflate(earmarked, actual_dates_month  , "03-2007", index = 'ipca')
-earmarked.d  <- seas(earmarked.d )
-earmarked.d  <-final(earmarked.d )
-
-nonearmarked.d <- deflate(nonearmarked, actual_dates_month  , "03-2007", index = 'ipca')
-nonearmarked.d  <- seas(nonearmarked.d )
-nonearmarked.d  <-final(nonearmarked.d )
-
-earmarked.growth <-(diff(earmarked.d)/(earmarked.d)[-length(earmarked.d)])*100
-nonearmarked.growth <-(diff(nonearmarked.d)/(nonearmarked.d)[-length(nonearmarked.d)])*100
-```
-
-```{r}
-credit.growth.plot <- ggplot() +
-  geom_area(data = nonearmarked.growth, aes(x = time(earmarked.growth), y = , nonearmarked.growth, fill="red") , alpha = 0.8,linetype="dashed") +
-  geom_area(data = earmarked.growth , aes(x = time(earmarked.growth), y = earmarked.growth , fill="grey"), alpha = 0.8, linetype="dashed") +
-    geom_line(size=0.7) +
-    theme_minimal()+
-  scale_x_continuous(breaks=seq(2007,2017,1), 
-                     labels=2007:2017 )+
-  theme(axis.text.x = element_text(angle=90, vjust = 0.5))+
-  xlab("") + 
-  scale_fill_manual(name = '',values = c("grey", "red"),labels = c("earmarked credit", "non-earmarked credit"))+
-  ylab("growth rate (%)")+
-  theme(
-    legend.position = c(1,1),
-    legend.justification = c("right", "top"),
-    legend.box.just = "right",
-    legend.margin = margin(6, 6, 6, 6)
-    ) 
-ggsave(file="creditgrowth.pdf")
-
-
-grid.arrange(rate.plot,credit.growth.plot, ncol=2)
-```
-```{r}
-households <- aggregate(BETSget(20606, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-firms <- aggregate(BETSget(20594, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-total <- aggregate(BETSget(20593, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-  
-rural <- aggregate(BETSget(20597, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-realestate <- aggregate(BETSget(20600, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-BNDES <- aggregate(BETSget(20604, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-other <- aggregate(BETSget(20605, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
-```
-
-```{r}
-#table.1 <- ts.union(round(households/total*100,1), round(firms/total*100,1), round(rural/firms*100,1), round(realestate/firms*100,1), round(BNDES/firms*100,1), round(other/firms*100,1))
-#ts2csv(table.1)
-```
-
-</details>
 
 # Adjusting to real values
 
@@ -555,6 +477,85 @@ grid.arrange(xm.index.plot,i.index.plot,y.growth.plot, ncol=2)
 
 
 ```
+
+  
+```{r, message=FALSE}
+
+rate.plot <- ggplot() +
+  geom_line(data = rate.earmarked, aes(x = time(rate.earmarked), y = , rate.earmarked, linetype ="dashed")) +
+  geom_line(data = rate.nonearmarked, aes(x = time(rate.earmarked), y = rate.nonearmarked, linetype = "solid")) +
+   geom_line(data = rate.gap, aes(x = time(rate.earmarked), y = rate.gap), color="red") +
+    geom_line(size=0.7) +
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2011,2017,1), 
+                     labels=2011:2017 )+
+  theme(axis.text.x = element_text(angle=90, vjust = 0.5))+
+  xlab("") + 
+  ylab("interest rate (%p.m.)")+
+  theme(
+    legend.position = c(0, 1.1),
+    legend.justification = c("left", "top"),
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6)
+    )+
+  scale_linetype_manual(name = '', values = rep(c('solid', 'dashed'),2),labels = c("earmarked", "non-earmarked")) 
+ggsave(file="rateplot.eps")
+
+
+actual_dates_month <- seq.Date(from = as.Date("2007-03-01"), to = as.Date("2017-12-30"), by = "month")
+earmarked.d <- deflate(earmarked, actual_dates_month  , "03-2007", index = 'ipca')
+earmarked.d  <- seas(earmarked.d )
+earmarked.d  <-final(earmarked.d )
+
+nonearmarked.d <- deflate(nonearmarked, actual_dates_month  , "03-2007", index = 'ipca')
+nonearmarked.d  <- seas(nonearmarked.d )
+nonearmarked.d  <-final(nonearmarked.d )
+
+earmarked.growth <-(diff(earmarked.d)/(earmarked.d)[-length(earmarked.d)])*100
+nonearmarked.growth <-(diff(nonearmarked.d)/(nonearmarked.d)[-length(nonearmarked.d)])*100
+```
+
+```{r}
+credit.growth.plot <- ggplot() +
+  geom_area(data = nonearmarked.growth, aes(x = time(earmarked.growth), y = , nonearmarked.growth, fill="red") , alpha = 0.8,linetype="dashed") +
+  geom_area(data = earmarked.growth , aes(x = time(earmarked.growth), y = earmarked.growth , fill="grey"), alpha = 0.8, linetype="dashed") +
+    geom_line(size=0.7) +
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2007,2017,1), 
+                     labels=2007:2017 )+
+  theme(axis.text.x = element_text(angle=90, vjust = 0.5))+
+  xlab("") + 
+  scale_fill_manual(name = '',values = c("grey", "red"),labels = c("earmarked credit", "non-earmarked credit"))+
+  ylab("growth rate (%)")+
+  theme(
+    legend.position = c(1,1),
+    legend.justification = c("right", "top"),
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6)
+    ) 
+ggsave(file="creditgrowth.pdf")
+
+
+grid.arrange(rate.plot,credit.growth.plot, ncol=2)
+```
+```{r}
+households <- aggregate(BETSget(20606, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+firms <- aggregate(BETSget(20594, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+total <- aggregate(BETSget(20593, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+  
+rural <- aggregate(BETSget(20597, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+realestate <- aggregate(BETSget(20600, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+BNDES <- aggregate(BETSget(20604, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+other <- aggregate(BETSget(20605, from = "2008-01-01", to = "2016-12-31"), nfrequency=1)
+```
+
+```{r}
+table.1 <- ts.union(round(households/total*100,1), round(firms/total*100,1), round(rural/firms*100,1), round(realestate/firms*100,1), round(BNDES/firms*100,1), round(other/firms*100,1))
+table.1
+#ts2csv(table.1)
+```
+
+
 </details>
 
 ## Data in logs
