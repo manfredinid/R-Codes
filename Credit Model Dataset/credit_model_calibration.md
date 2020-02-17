@@ -36,6 +36,12 @@ expand</summary>
 
 ![](credit_model_calibration_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
+    ##      [,1] [,2]
+    ## [1,] 3.65 0.91
+
+    ##      [,1] [,2]
+    ## [1,] 2.16 0.56
+
 <details>
 
 <summary>Click to
@@ -62,13 +68,13 @@ The series are deflated using the IPCA
 <summary>Click to
 expand</summary>
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 </details>
 
 ## Per capita and HP filter Series
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 # Population and Technology Discount Factors
 
@@ -137,7 +143,7 @@ employed population to total. population in active age.
 +  Detrended by the rate of technological progress (gamma).
 ```
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 ## Graphs (introduction)
 
@@ -178,7 +184,7 @@ The transition path will be computed as a transition from the minimum
 non-earmarked earmarked ration gap to the
 maximum.
 
-![](credit_model_calibration_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](credit_model_calibration_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
     ##      max  min
     ## [1,] 4.2 3.51
