@@ -1,4 +1,4 @@
-#carregando o pacote kkkkkkkk
+#carregando o pacote 
 library(strucchange)
 
 #carregando os dados
