@@ -1,4 +1,4 @@
-#carregando o pacote
+#carregando o pacote kkkkkkkk
 library(strucchange)
 
 #carregando os dados
@@ -12,7 +12,7 @@ attach(div)
 g<- ts(data = div, start = 1871, end = 2016, frequency = 12, deltat = 1/12)
 
 #plotando a sÃ©rie
-ts.plot(g ,xlab="ano", ylab="Taxa Preço-Dividendo" )
+ts.plot(g ,xlab="ano", ylab="Taxa Pre?o-Dividendo" )
 
 #estimando os pontos de quebra
 bp.g <- breakpoints(g~1, h=150)
