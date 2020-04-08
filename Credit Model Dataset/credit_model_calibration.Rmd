@@ -594,3 +594,31 @@ autoplot(pi_p, main='non-earmarked earmarked ratio')
 
 cbind(max=round(max(pi_p),2), min =round(min(pi_p),2))
 ```
+
+# Final Policy Design Plots
+
+
+```{r}
+rate.nonearmarked <- BETSget(20718,from ="2011-04-01",to ="2016-12-01")
+rate.PJ <- BETSget(20725,from ="2000-07-01",to ="2016-12-01")
+selic <- BETSget(4189,from ="2000-07-01",to ="2016-12-01")
+tjlp <- BETSget(256,from ="2000-07-01",to ="2016-12-01")
+tjlp.6 <- tjlp+6
+tjlp.15 <- tjlp+1.5
+
+tjlp.union <- ts.union(tjlp,tjlp.6,tjlp.15,selic)
+```
+
+
+
+Comparing several taxes
+
+```{r}
+autoplot(tjlp.union)+
+  geom_segment(aes(y = selic), col = "red")+
+  xlab("") + 
+  ylab("Investment (%GDP)")
+#ggsave(file="iindex.eps")
+````
+
+Show the equivalence between 20718 and 20725
