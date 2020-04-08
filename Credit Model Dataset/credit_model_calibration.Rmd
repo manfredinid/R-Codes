@@ -609,6 +609,8 @@ tjlp.15 <- tjlp+1.5
 
 ```{r}
 tjlp.union <- ts.union(tjlp,tjlp.6,selic,rate.PJ,tjlp.15)
+
+PJ.nonearmarked <- cbind(rate.PJ,rate.nonearmarked)
 ```
 
 
@@ -618,10 +620,21 @@ Comparing several taxes
 ```{r}
 autoplot(tjlp.union)+
   theme(legend.title = element_blank(),legend.position="bottom")+
-  scale_color_manual(name = '',values = c("blue", "#00AFBB","black", "red","grey"),labels = c("TJLP", "TJLP+6%","Selic", "PJ","TJLP+1.5%"))+
+  scale_color_manual(name = '',values = c("blue", "#00AFBB","black", "red","grey"),labels = c("TJLP", "TJLP+6%","Selic", "nonearmarked","TJLP+1.5%"))+
   xlab("") + 
   ylab("percent per annum")
-#ggsave(file="iindex.eps")
-````
+ggsave(file="ratespolicy.eps")
+
+```
+
+
+```{r}
+autoplot(PJ.nonearmarked)+
+  theme(legend.title = element_blank(),legend.position="bottom")+
+  scale_color_manual(name = '',values = c("blue","black"),labels = c("nonearmarked credit operations - working capital (20725)", "nonearmarked credit (20718)"))+
+  xlab("") + 
+  ylab("percent per annum")
+ggsave(file="PJnonearmarked.eps")
+```
 
 Show the equivalence between 20718 and 20725
