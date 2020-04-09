@@ -596,26 +596,31 @@ cbind(max=round(max(pi_p),2), min =round(min(pi_p),2))
 ```
 
 # Final Policy Design Plots
-
+Comparing several taxes and show the equivalence between 20718 and 20725
 
 ```{r}
-rate.nonearmarked <- BETSget(20718,from ="2011-04-01",to ="2016-12-01")
+rate.nonearmarked.firms <- BETSget(20718,from ="2011-04-01",to ="2016-12-01")
+rate.earmarked.firms <- BETSget(20757,from ="2011-04-01",to ="2016-12-01")
 rate.PJ <- BETSget(20725,from ="2000-07-01",to ="2016-12-01")
 selic <- BETSget(4189,from ="2000-07-01",to ="2016-12-01")
 tjlp <- BETSget(256,from ="2000-07-01",to ="2016-12-01")
 tjlp.6 <- tjlp+6
 tjlp.15 <- tjlp+1.5
+
+non.diff <- rate.PJ-selic
+ear.diff <- tjlp.15-selic
+
+
 ```
 
 ```{r}
 tjlp.union <- ts.union(tjlp,tjlp.6,selic,rate.PJ,tjlp.15)
 
-PJ.nonearmarked <- cbind(rate.PJ,rate.nonearmarked)
+PJ.nonearmarked <- cbind(rate.PJ,rate.nonearmarked.firms)
+TPJL.earmarked <- cbind(tjlp.6,tjlp.15,rate.earmarked.firms)
 ```
 
 
-
-Comparing several taxes
 
 ```{r}
 autoplot(tjlp.union)+
@@ -636,5 +641,26 @@ autoplot(PJ.nonearmarked)+
   ylab("percent per annum")
 ggsave(file="PJnonearmarked.eps")
 ```
+```{r}
+autoplot(TPJL.earmarked)+
+  theme(legend.title = element_blank(),legend.position="bottom")+
+  scale_color_manual(name = '',values = c("darkgrey","black","blue"),labels = c("TJPL+1.5%","TJPL+6%", "earmarked credit (20757)"))+
+  xlab("") + 
+  ylab("percent per annum")
+ggsave(file="tpjlearmarked.eps")
+```
 
-Show the equivalence between 20718 and 20725
+```{r}
+design <- cbind(non.diff,ear.diff)
+design <- window(design, start = c(2007, 1), end=c(2014,4))
+colMeans(design)
+
+autoplot(design)+
+  theme(legend.title = element_blank(),legend.position="bottom")+
+  geom_hline(yintercept=colMeans(design), color="red")+
+  scale_color_manual(name = '',values = c("blue","black"),labels = c("nonearmarked credit", "earmarked credit"))+
+  xlab("") + 
+  ylab("percent per annum")
+ggsave(file="PJnonearmarked.eps")
+```
+
