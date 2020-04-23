@@ -151,8 +151,38 @@ plot.earmarked.firms <- autoplot(earmarked.firms/total.firms, main='earmarked cr
 grid.arrange(plot.nonearmarked ,plot.earmarked , plot.nonearmarked.firms, plot.earmarked.firms,ncol=2)
 
 
+
 ```
 
+```{r}
+ggplot(earmarked, aes(x = time(earmarked), y = (earmarked/total)*100)) +
+    geom_line(size=0.7) + 
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2007.167,2017.917), 
+                     labels=2007:2017 )+
+   theme(axis.text.x = element_text(angle=90, vjust = 0.5),
+         legend.title=element_blank(),
+        legend.position = c(.4,0.85))+
+  geom_hline(yintercept=50, color='red', size=0.7)+
+  xlab("") + 
+  ylab("% total credit")+
+  theme(axis.title.y = element_text(size=12))
+ggsave(file="plotearmarked.eps")
+
+ggplot(earmarked.firms, aes(x = time(earmarked.firms), y = (earmarked.firms/total.firms)*100)) +
+    geom_line(size=0.7) + 
+    theme_minimal()+
+  scale_x_continuous(breaks=seq(2007.167,2017.917), 
+                     labels=2007:2017 )+
+   theme(axis.text.x = element_text(angle=90, vjust = 0.5),
+         legend.title=element_blank(),
+        legend.position = c(.4,0.85))+
+  geom_hline(yintercept=50, color='red', size=0.7)+
+  xlab("") + 
+  ylab("% total firms' credit ")+
+  theme(axis.title.y = element_text(size=12))
+ggsave(file="plotearmarkedfirms.eps")
+```
 ## Monthly (%p.m.) start in March 2011 
 
 ```{r, message=FALSE}
@@ -477,6 +507,7 @@ grid.arrange(xm.index.plot,i.index.plot,y.growth.plot, ncol=2)
 
 
 ```
+
 
   
 ```{r, message=FALSE}
