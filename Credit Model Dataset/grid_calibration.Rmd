@@ -1,0 +1,105 @@
+---
+title: "Grid Points"
+author: "Denise Manfredini"
+date: "26/06/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Packages
+```{r}
+#install.packages("dplyr", repos = "http://cran.r-project.org")
+library(tidyverse)
+library(ggthemes, ggplot2)
+```
+
+# Import data
+```{r}
+library(haven)
+data <- read_dta("C:/Users/manfrede/Downloads/Brazil2009-full data.dta")
+
+data  <- data  %>% filter(a0==1)
+```
+
+
+
+## select capital and labor
+
+```{r}
+data <- mutate(data,
+                    K = n7a, #capital
+                    L = l1, #labor
+                    weight =wmedian
+                    ) 
+data <- data %>%  select(K, L, weight) 
+```
+
+# Drop NA and zeros values
+```{r}
+data_clean <- data %>% drop_na() %>% filter(!((K==-9 | L==-9 | weight==-9))) %>% filter(!((K<=0 | L<=0 | weight<=0)))
+
+head(data_clean)
+```
+
+# Capital Grid
+
+```{r}
+max_k <- max(data_clean$K)
+
+min_k <- min(data_clean$K)
+
+cbind(min_k/min_k, max_k/min_k)
+
+# for a log spaced grid
+
+cbind(log((min_k/min_k)+0.0023)/log(10), log(max_k/min_k)/log(10))
+```
+
+# max and min productivity
+
+```{r} 
+alpha <- 0.399
+
+gamma <- 0.491
+  
+max_l <- max(data_clean$L)
+
+min_l <- min(data_clean$L)
+
+s_min <- (min_l/min_l)^(1-alpha-gamma)
+
+s_max <- (max_l/min_l)^(1-alpha-gamma)
+
+cbind(s_min, s_max)
+
+```
+
+# mean and sd for productivity
+
+```{r}
+data_clean <- mutate(data_clean,
+                    s_values = (L^(1-alpha-gamma))
+                    ) 
+
+
+cbind(min(data_clean$s_values), max(data_clean$s_values)) # check 
+
+s_mean <- weighted.mean(data_clean$s_values, data_clean$weight)
+
+s_var <- sum((data_clean$weight/sum(data_clean$weight)) * (data_clean$s_values - s_mean)^2)
+
+cbind(s_mean, s_var)
+
+```
+# nconditional mean
+
+```{r}
+s_a <- (1-0.9)*s_mean
+
+cbind(sqrt(s_var), s_a)
+
+```
