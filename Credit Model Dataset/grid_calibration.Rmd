@@ -90,7 +90,7 @@ cbind(min(data_clean$s_values), max(data_clean$s_values)) # check
 
 s_mean <- weighted.mean(data_clean$s_values, data_clean$weight)
 
-s_var <- sum((data_clean$weight/sum(data_clean$weight)) * (data_clean$s_values - s_mean)^2)
+s_var <- sum((data_clean$weight/sum(data_clean$weight)) * (log(data_clean$s_values) - log(s_mean))^2)
 
 cbind(s_mean, s_var)
 
@@ -98,7 +98,7 @@ cbind(s_mean, s_var)
 # nconditional mean
 
 ```{r}
-s_a <- (1-0.9)*s_mean
+s_a <- (1-0.9)*log(s_mean)
 
 cbind(sqrt(s_var), s_a)
 
