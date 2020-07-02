@@ -1,0 +1,20 @@
+---
+title: "Deseasonalized Data"
+author: "Denise Manfredini"
+date: "03/07/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# packages 
+```{r}
+require(zoo)
+require(seasonal)
+```
+
+# load data
+```{r}
+data_3 <- read.table("C:/Users/manfrede/Desktop/ydata1.dat", quote="\"", comment.char="")
+```
