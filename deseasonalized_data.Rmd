@@ -10,11 +10,85 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # packages 
 ```{r}
+require(multiplex) 
 require(zoo)
 require(seasonal)
+require(BETS)
+require(deflateBR)
 ```
 
 # load data
 ```{r}
 data_3 <- read.table("C:/Users/manfrede/Desktop/ydata1.dat", quote="\"", comment.char="")
+
+bndes <- BETSget(7415,from = c("2003-01-01"),to = c("2017-12-31"))
+```
+
+```{r}
+ibc <- BETSget(24364,from = c("2003-01-01"),to = c("2017-12-31"))
+
+fbcf <- ts(data_3$V1, frequency = 12, start = c(2003, 1))
+```
+
+```{r}
+actual_dates_month <- seq.Date(from = as.Date("2003-01-01"), to = as.Date("2017-12-31"), by = "month")
+bndes_defl <- deflate(bndes, actual_dates_month , '01/2003', index = 'ipca')
+```
+```{r}
+bndes_final <- seas(bndes_defl)
+bndes_final <-final(bndes_final)
+```
+
+```{r}
+
+bndes_plot <-  autoplot(bndes_final)
+ibc_plot <-  autoplot(ibc)
+fbcf_plot <-  autoplot(fbcf)
+
+grid.arrange(bndes_plot, ibc_plot, fbcf_plot, ncol=2)
+
+```
+
+```{r}
+bndes_3rt <- cbind(bndes_final,ibc,fbcf)
+write.dat(bndes_3rt, path='C:/Users/manfrede/Desktop')
+```
+
+```{r}
+
+bndes_quarter <- aggregate(bndes, nfrequency=4)
+bndes_quarter <- seas(bndes_quarter)
+bndes_quarter <-final(bndes_quarter)
+
+pib_quarter <- get_sidra(api='/t/1846/n1/all/v/all/p/last%2075/c11255/90707/d/v585%200')
+pib_quarter <- ts(pib_quarter$Valor,  start=c(2003,01), freq=4)
+pib_quarter <- window(pib_quarter,start=c(2003,01),end=c(2017,04))
+
+fbcf_quarter <-get_sidra(api='/t/1846/n1/all/v/all/p/last%2075/c11255/93406/d/v585%200')
+fbcf_quarter <-ts(fbcf_quarter$Valor,  start=c(2003,01), freq=4)
+fbcf_quarter <- window(fbcf_quarter,start=c(2003,01),end=c(2017,04))
+
+```
+
+```{r}
+actual_dates_quarter <- seq.Date(from = as.Date("2003-01-01"), to = as.Date("2017-12-31"), by = "quarter")
+bndes_quanter <- deflate(bndes_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+pib_quarter <- deflate(pib_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+fbcf_quanter <- deflate(fbcf_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+
+```
+
+```{r}
+
+Qbndes_plot <-  autoplot(bndes_quarter)
+Qibc_plot <-  autoplot(fbcf_quarter)
+Qfbcf_plot <-  autoplot(pib_quarter)
+
+grid.arrange(Qbndes_plot, Qibc_plot, Qfbcf_plot, ncol=2)
+
+```
+
+```{r}
+Qbndes_3rt <- cbind(bndes_quanter,pib_quarter,fbcf_quarter)
+write.dat(Qbndes_3rt, path='C:/Users/manfrede/Desktop')
 ```
