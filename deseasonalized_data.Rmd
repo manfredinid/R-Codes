@@ -72,9 +72,19 @@ fbcf_quarter <- window(fbcf_quarter,start=c(2003,01),end=c(2017,04))
 
 ```{r}
 actual_dates_quarter <- seq.Date(from = as.Date("2003-01-01"), to = as.Date("2017-12-31"), by = "quarter")
-bndes_quanter <- deflate(bndes_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+bndes_quarter <- deflate(bndes_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
 pib_quarter <- deflate(pib_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
-fbcf_quanter <- deflate(fbcf_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+fbcf_quarterr <- deflate(fbcf_quarter, actual_dates_quarter , '01/2003', index = 'ipca')
+
+
+bndes_quarter <- seas(bndes_quarter)
+bndes_quarter <-final(bndes_quarter)
+
+pib_quarter <- seas(pib_quarter)
+pib_quarter <-final(pib_quarter)
+
+fbcf_quarter <- seas(fbcf_quarter)
+fbcf_quarter <-final(fbcf_quarter)
 
 ```
 
@@ -89,6 +99,6 @@ grid.arrange(Qbndes_plot, Qibc_plot, Qfbcf_plot, ncol=2)
 ```
 
 ```{r}
-Qbndes_3rt <- cbind(bndes_quanter,pib_quarter,fbcf_quarter)
+Qbndes_3rt <- cbind(bndes_quarter,pib_quarter,fbcf_quarter)
 write.dat(Qbndes_3rt, path='C:/Users/manfrede/Desktop')
 ```
